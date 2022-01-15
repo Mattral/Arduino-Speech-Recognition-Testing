@@ -37,39 +37,39 @@ Replace the original with the following code and change the ‘Minimum confidenc
 
 ********************************************
 
-import tensorflow as tf
+    import tensorflow as tf
 
-from tensorflow.keras.models import Sequential
+    from tensorflow.keras.models import Sequential
 
-from tensorflow.keras.layers import Dense, InputLayer, Dropout, Flatten, Reshape, BatchNormalization, Conv2D, MaxPooling2D, AveragePooling2D
+    from tensorflow.keras.layers import Dense, InputLayer, Dropout, Flatten, Reshape, BatchNormalization, Conv2D, MaxPooling2D, AveragePooling2D
 
-from tensorflow.keras.optimizers import Adam
+    from tensorflow.keras.optimizers import Adam
 
-from tensorflow.keras.constraints import MaxNorm
+    from tensorflow.keras.constraints import MaxNorm
 
-model = Sequential()
+    model = Sequential()
 
-model.add(InputLayer(input_shape=(X_train.shape[1], ), name='x_input'))
+    model.add(InputLayer(input_shape=(X_train.shape[1], ), name='x_input'))
 
-model.add(Reshape((int(X_train.shape[1] / 13), 13, 1), input_shape=(X_train.shape[1], )))
+    model.add(Reshape((int(X_train.shape[1] / 13), 13, 1), input_shape=(X_train.shape[1], )))
 
-model.add(Conv2D(10, kernel_size=5, activation='relu', padding='same', kernel_constraint=MaxNorm(3)))
+    model.add(Conv2D(10, kernel_size=5, activation='relu', padding='same', kernel_constraint=MaxNorm(3)))
 
-model.add(AveragePooling2D(pool_size=2, padding='same'))
+    model.add(AveragePooling2D(pool_size=2, padding='same'))
 
-model.add(Conv2D(5, kernel_size=5, activation='relu', padding='same', kernel_constraint=MaxNorm(3)))
+    model.add(Conv2D(5, kernel_size=5, activation='relu', padding='same', kernel_constraint=MaxNorm(3)))
 
-model.add(AveragePooling2D(pool_size=2, padding='same'))
+    model.add(AveragePooling2D(pool_size=2, padding='same'))
 
-model.add(Flatten())
+    model.add(Flatten())
 
-model.add(Dense(classes, activation='softmax', name='y_pred', kernel_constraint=MaxNorm(3)))
+    model.add(Dense(classes, activation='softmax', name='y_pred', kernel_constraint=MaxNorm(3)))
 
-opt = Adam(lr=0.005, beta_1=0.9, beta_2=0.999)
+    opt = Adam(lr=0.005, beta_1=0.9, beta_2=0.999)
 
-model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
+    model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
 
-model.fit(X_train, Y_train, batch_size=32, epochs=9, validation_data=(X_test, Y_test), verbose=2)
+    model.fit(X_train, Y_train, batch_size=32, epochs=9, validation_data=(X_test, Y_test), verbose=2)
 
 
 **************************************************
@@ -96,11 +96,11 @@ We are making some changes in the void loop() where it is printing the probabili
 
 **************************************************
 
-for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {
+    for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {
 
-ei_printf("    %s: %.5f\n", result.classification[ix].label, result.classification[ix].value);
+    ei_printf("    %s: %.5f\n", result.classification[ix].label, result.classification[ix].value);
 
-   }
+       }
    
 ************************************************** 
 
@@ -108,7 +108,9 @@ To control the LED we have to save all the command probabilities in three differ
 
 ************************************************** 
 
-for (size_t ix = 2; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {
+ 
+ 
+    for (size_t ix = 2; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {
 
     noise = result.classification[ix].value;
    
@@ -149,6 +151,8 @@ for (size_t ix = 2; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {
       digitalWrite(led, LOW);
       
     }
+    
+    
 
 ************************************************** 
    
